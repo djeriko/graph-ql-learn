@@ -12,7 +12,6 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true }
 )
 
-
 app.use(
   "/graphql",
   graphqlHTTP({
