@@ -2,15 +2,19 @@ const express = require("express")
 const graphqlHTTP = require("express-graphql")
 const schema = require("../schema/schema")
 const mongoose = require("mongoose")
-const {DB_LOGIN, DB_PASSWORD} = require("../passwords")
+const cors = require("cors")
 
 const app = express()
 const PORT = 3005
+
+const {DB_LOGIN, DB_PASSWORD} = require("../passwords")
 
 mongoose.connect(
   `mongodb+srv://${DB_LOGIN}:${DB_PASSWORD}@graphql-tutorial-6rvb1.mongodb.net/test`,
   { useNewUrlParser: true, useUnifiedTopology: true }
 )
+
+app.use(cors())
 
 app.use(
   "/graphql",
@@ -19,6 +23,7 @@ app.use(
     graphiql: true
   })
 )
+
 
 const dbConnection = mongoose.connection
 dbConnection.on("error", err => console.log(`Connection error: ${err}`))
