@@ -22,7 +22,6 @@ const MovieType = new GraphQLObjectType({
     genre: { type: new GraphQLNonNull(GraphQLString) },
     rate: { type: GraphQLInt },
     watched: { type: new GraphQLNonNull(GraphQLBoolean) },
-
     director: {
       type: DirectorType,
       resolve({ directorId }, args) {
@@ -40,7 +39,7 @@ const DirectorType = new GraphQLObjectType({
     age: { type: new GraphQLNonNull(GraphQLInt) },
     movies: {
       type: GraphQLList(MovieType),
-      resolve(parent, { id }) {
+      resolve({ id }, args) {
         return Movies.find({ directorId: id })
       }
     }
